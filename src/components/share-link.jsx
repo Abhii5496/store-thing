@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
+import { Share } from "lucide-react";
 
 export default function ShareComponent({ url = "", title }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -46,7 +47,7 @@ export default function ShareComponent({ url = "", title }) {
 
   return (
     <Button className="" onClick={shareContent}>
-      Share
+      <Share />
     </Button>
   );
 }

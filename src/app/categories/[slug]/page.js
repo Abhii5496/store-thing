@@ -21,25 +21,25 @@ export default async function page({ params }) {
 
   return (
     <Suspense fallback={"Loading.."}>
-      <div className="container mx-auto">
-        <div className="pt-10 pb-4 pl-2 lg:ml-20">
+      <div className="container px-4 mx-auto">
+        <div className="pt-10 pl-2 sm:pl-0 pb-4 ">
           <BackButton />
         </div>
-      </div>
-      <div className="px-2 lg:ml-20 pb-20">
-        <h1 className="py-5 text-2xl font-li capitalize">
-          Category -{decodeURIComponent(slug)}
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {data.map((item, i) => (
-            <ProductCard
-              key={i}
-              image={item.image}
-              id={item.id}
-              price={item.price}
-              title={item.title}
-            />
-          ))}
+        <div className="px-2 ">
+          <h1 className="py-5 text-2xl font-li capitalize">
+            Category -{decodeURIComponent(slug)}
+          </h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {data.map((item, i) => (
+              <ProductCard
+                key={i}
+                image={item.image}
+                id={item.id}
+                price={item.price}
+                title={item.title}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </Suspense>

@@ -5,6 +5,7 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
+import Provider from "@/components/Provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,10 +29,12 @@ export default function RootLayout({ children }) {
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <Toaster />
+          <Provider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <Toaster />
+          </Provider>
         </ThemeProvider>
       </body>
     </html>

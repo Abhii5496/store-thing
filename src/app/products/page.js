@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -95,7 +95,6 @@ export default function ListingProducts() {
     router.push(`${pathname}?${queryString}`, { scroll: false });
   };
 
-  // Fetch products
   const getProducts = async () => {
     setloading(true);
     try {
@@ -121,7 +120,6 @@ export default function ListingProducts() {
 
   useEffect(() => {
     if (data) {
-      // Filter by price range
       let filtered = data.filter(
         (item) =>
           item.price >= filters.priceRange[0] &&
@@ -144,130 +142,129 @@ export default function ListingProducts() {
     }
   }, [data, filters]);
 
-  // Paginate filtered data
   const paginatedData =
     filteredData &&
     filteredData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
-  // Update total pages when filteredData changes
   useEffect(() => {
     if (filteredData) {
       setTotalPages(Math.ceil(filteredData.length / PAGE_SIZE));
     }
   }, [filteredData]);
 
-  //   // Logs for debugging
-  //   console.log("Original Data:", data);
-  //   console.log("Filtered Data:", filteredData);
-  //   console.log("Paginated Data:", paginatedData);
+  //   console.log("Original :", data);
+  //   console.log("Filtered :", filteredData);
+  //   console.log("Paginated :", paginatedData);
 
   return (
-    <div className="container mx-auto p-8">
-      {/* Header */}
-      <header className="mb-8">
-        <h1 className="text-3xl font-semibold">All Products</h1>
-        <p className="text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-      </header>
+    <Suspense fallback={"loading.."}>
+      <div className="container mx-auto p-8">
+        {/* Header */}
+        <header className="mb-8">
+          <h1 className="text-3xl font-semibold">All Products</h1>
+          <p className="text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </header>
 
-      {/* Main Content */}
-      <div className="flex space-x-8 gap-10">
-        {/* Filters */}
-        <Filter
-          filters={filters}
-          setFilters={setFilters}
-          handleFilterChange={handleFilterChange}
-        />
-        {/* Products */}
-        <section className="w-3/4">
-          <div className="flex justify-end items-center mb-6">
-            <h2 className="text-md ">
-              Showing {!!filteredData && filteredData.length} Products
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {!loading &&
-              paginatedData &&
-              paginatedData.length > 0 &&
-              paginatedData.map((product, index) => (
-                <ProductCard
-                  id={product.id}
-                  image={product.image}
-                  price={product.price}
-                  title={product.title}
-                  key={index}
-                />
-              ))}
-
-            {loading &&
-              [...Array(8)].map((_, i) => (
-                <Skeleton
-                  className="bg-gray-400 h-[300px] rounded-xl"
-                  key={i}
-                />
-              ))}
-          </div>
-
-          {!loading && paginatedData && paginatedData.length == 0 && (
-            <div className="flex items-center justify-center h-[200px]">
-              <h6 className="text-xl font-medium text-primary">
-                No product found.
-              </h6>
+        {/* Main Content */}
+        <div className="flex space-x-8 gap-10">
+          {/* Filters */}
+          <Filter
+            filters={filters}
+            setFilters={setFilters}
+            handleFilterChange={handleFilterChange}
+          />
+          {/* Products */}
+          <section className="w-3/4">
+            <div className="flex justify-end items-center mb-6">
+              <h2 className="text-md ">
+                Showing {!!filteredData && filteredData.length} Products
+              </h2>
             </div>
-          )}
 
-          {!loading && error && (
-            <div className="h-[200px] justify-center items-center">
-              <h1 className="text-xl">
-                Something went wrong, Please try again.
-              </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+              {!loading &&
+                paginatedData &&
+                paginatedData.length > 0 &&
+                paginatedData.map((product, index) => (
+                  <ProductCard
+                    id={product.id}
+                    image={product.image}
+                    price={product.price}
+                    title={product.title}
+                    key={index}
+                  />
+                ))}
+
+              {loading &&
+                [...Array(8)].map((_, i) => (
+                  <Skeleton
+                    className="bg-gray-400 h-[300px] rounded-xl"
+                    key={i}
+                  />
+                ))}
             </div>
-          )}
 
-          {!!filteredData && !!totalPages && (
-            <div className="mt-8 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem className="cursor-pointer">
-                    <PaginationPrevious
-                      onClick={() =>
-                        handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
-                      }
-                    />
-                  </PaginationItem>
-                  {[...Array(totalPages)].map((item, i) => (
-                    <PaginationItem className="cursor-pointer" key={i}>
-                      <PaginationLink
-                        onClick={() => handlePageChange(i + 1)}
-                        isActive={currentPage == i + 1}
-                      >
-                        {i + 1}
-                      </PaginationLink>
+            {!loading && paginatedData && paginatedData.length == 0 && (
+              <div className="flex items-center justify-center h-[200px]">
+                <h6 className="text-xl font-medium text-primary">
+                  No product found.
+                </h6>
+              </div>
+            )}
+
+            {!loading && error && (
+              <div className="h-[200px] justify-center items-center">
+                <h1 className="text-xl">
+                  Something went wrong, Please try again.
+                </h1>
+              </div>
+            )}
+
+            {!!filteredData && !!totalPages && (
+              <div className="mt-8 flex justify-center">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem className="cursor-pointer">
+                      <PaginationPrevious
+                        onClick={() =>
+                          handlePageChange(
+                            currentPage > 1 ? currentPage - 1 : 1
+                          )
+                        }
+                      />
                     </PaginationItem>
-                  ))}
+                    {[...Array(totalPages)].map((item, i) => (
+                      <PaginationItem className="cursor-pointer" key={i}>
+                        <PaginationLink
+                          onClick={() => handlePageChange(i + 1)}
+                          isActive={currentPage == i + 1}
+                        >
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
 
-                  <PaginationItem className="cursor-pointer">
-                    <PaginationNext
-                      onClick={() =>
-                        handlePageChange(
-                          Number(currentPage) == Number(totalPages)
-                            ? currentPage
-                            : currentPage + 1
-                        )
-                      }
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
-        </section>
+                    <PaginationItem className="cursor-pointer">
+                      <PaginationNext
+                        onClick={() =>
+                          handlePageChange(
+                            Number(currentPage) == Number(totalPages)
+                              ? currentPage
+                              : currentPage + 1
+                          )
+                        }
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
+          </section>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
-
-export const dynamic = "force-dynamic";
