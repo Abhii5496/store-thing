@@ -29,15 +29,15 @@ export function Footer() {
                   <Image
                     src="/apple-logo.svg"
                     alt="App Store"
-                    width={20}
-                    height={20}
-                    className="h-8 w-auto invert"
+                    width={25}
+                    height={25}
+                    className=" invert"
                   />
                   <p className="flex flex-col justify-center">
                     <span className="text-start text-[10px] leading-[.95]">
                       Get it on
                     </span>
-                    <span className="text-lg font-medium">Apple store</span>
+                    <span className="text-md font-medium">Apple store</span>
                   </p>
                 </Button>
               </Link>
@@ -46,15 +46,15 @@ export function Footer() {
                   <Image
                     src="/playstore-logo.svg"
                     alt="App Store"
-                    width={20}
-                    height={20}
-                    className="h-8 w-auto"
+                    width={25}
+                    height={25}
+                    className=""
                   />
                   <p className="flex flex-col justify-center">
                     <span className="text-start text-[10px] leading-[.95]">
                       Download on
                     </span>
-                    <span className="text-lg font-medium">Playstore</span>
+                    <span className="text-md font-medium">Playstore</span>
                   </p>
                 </Button>
               </Link>

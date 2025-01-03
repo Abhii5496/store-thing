@@ -49,9 +49,9 @@ export default async function Content() {
       {/* Promotional  */}
       <section className="py-12 container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8">
-          <Card className="bg-primary text-white">
-            <CardContent className="p-8">
-              <h2 className="text-4xl font-bold ">
+          <Card className="bg-primary text-white ">
+            <CardContent className="p-8 relative h-full">
+              <h2 className="text-xl sm:text-4xl font-bold ">
                 Your Style,
                 <br />
                 Delivered.
@@ -60,9 +60,16 @@ export default async function Content() {
                 <br />
                 Online.
               </h2>
-              <Button variant="secondary" className="mt-4">
+              <Button variant="secondary" className="mt-4 relative z-10">
                 Shop Now
               </Button>
+              <div className="absolute bottom-0 right-10 h-full w-32 sm:w-60 lg:w-80 ">
+                <Image
+                  src="https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
+                  fill
+                  className="absolute object-contain mix-blend-multiply sm:bottom-0 sm:right-10 z-0"
+                />
+              </div>
             </CardContent>
           </Card>
           <div className="grid gap-8">
@@ -126,18 +133,28 @@ export default async function Content() {
           <h2 className="text-2xl font-semibold mb-8">Featured Deals</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="border-none bg-accent">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-medium mb-2">
-                  Indulge in
-                  <br />
-                  exclusive deals
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Shop now and enjoy
-                  <br />
-                  our latest fashion finds
-                </p>
-                <Button className="bg-primary">Shop Now</Button>
+              <CardContent className="p-8 grid grid-cols-2">
+                <div>
+                  <h3 className="text-xl font-medium mb-2">
+                    Indulge in
+                    <br />
+                    exclusive deals
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Shop now and enjoy
+                    <br />
+                    our latest fashion finds
+                  </p>
+                  <Button className="bg-primary">Shop Now</Button>
+                </div>
+                <div className="relative">
+                  <Image
+                    src="https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
+                    alt="Fetaure"
+                    fill
+                    className="object-contain absolute mix-blend-multiply"
+                  />
+                </div>
               </CardContent>
             </Card>
             <Card className="bg-primary text-white">
@@ -157,36 +174,6 @@ export default async function Content() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* Brandss */}
-      <section className="py-12 container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-semibold">Shop by Brands</h2>
-          <Link
-            href="/brands"
-            className="text-sm text-muted-foreground hover:text-primary"
-          >
-            See all brands
-          </Link>
-        </div>
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
-          {brands.map((brand) => (
-            <Link
-              key={brand.name}
-              href={`/brands/${brand.slug}`}
-              className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all"
-            >
-              <Image
-                src={brand.logo}
-                alt={brand.name}
-                width={100}
-                height={40}
-                className="object-contain"
-              />
-            </Link>
-          ))}
         </div>
       </section>
     </div>

@@ -9,6 +9,17 @@ export default async function page({ params }) {
   const data = await res.json();
   // console.log(data);
 
+  if (!data) {
+    return (
+      <Suspense fallback="loading">
+        <div className="container mx-auto">
+          <div>
+            <h1>Something went wrong</h1>
+          </div>
+        </div>
+      </Suspense>
+    );
+  }
   return (
     <Suspense fallback="loading">
       <div>
