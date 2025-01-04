@@ -67,7 +67,7 @@ export default function ProductDetail({ id }) {
     }
   }, [data, cartList]);
 
-  console.log(isInCart, cartList, qty);
+  // console.log(isInCart, cartList, qty);
 
   useEffect(() => {
     if (cartList && cartList.length > 0 && isInCart) {
@@ -135,7 +135,7 @@ export default function ProductDetail({ id }) {
             />
           </Button>
 
-          <ShareComponent title={data?.title} />
+          <ShareComponent title={data?.title} id={data?.id} />
         </div>
       </div>
       <div className="flex sm:flex-row flex-col p-5 sm:p-20 sm:pt-10 gap-20">

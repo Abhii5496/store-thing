@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -11,13 +13,26 @@ import {
   Gift,
 } from "lucide-react";
 import { ProductCard } from "@/components/ui/product-card";
+import { useEffect, useState } from "react";
 
-export default async function Content() {
-  const data = await fetch(
-    process.env.NEXT_PUBLIC_STORE_URL + "products?limit=5"
-  );
-  const newArrivals = await data.json();
-  //   console.log(newArrivals);
+export default function Content() {
+  const [newArrivals, setnewArrivals] = useState([]);
+  const getData = async () => {
+    try {
+      const data = await fetch(
+        process.env.NEXT_PUBLIC_STORE_URL + "products?limit=5"
+      );
+      const newArr = await data.json();
+
+      setnewArrivals(newArr);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       {/* New Arrivals */}
@@ -33,15 +48,17 @@ export default async function Content() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {newArrivals.map((product) => (
-              <ProductCard
-                id={product.id}
-                image={product.image}
-                price={product.price}
-                title={product.title}
-                key={product.id}
-              />
-            ))}
+            {newArrivals &&
+              newArrivals.length > 0 &&
+              newArrivals.map((product) => (
+                <ProductCard
+                  id={product.id}
+                  image={product.image}
+                  price={product.price}
+                  title={product.title}
+                  key={product.id}
+                />
+              ))}
           </div>
         </div>
       </section>

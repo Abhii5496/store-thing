@@ -4,17 +4,8 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { Share } from "lucide-react";
 
-export default function ShareComponent({ url, title }) {
+export default function ShareComponent({ id, title }) {
   const [isMobile, setIsMobile] = useState(false);
-  const [fullUrl, setFullUrl] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setFullUrl(window.location.host);
-    }
-  }, []);
-
-  console.log(fullUrl, isMobile, "host");
 
   useEffect(() => {
     // Detect if the device is mobile
@@ -27,7 +18,7 @@ export default function ShareComponent({ url, title }) {
       try {
         await navigator.share({
           title,
-          url: fullUrl,
+          url: "https://store-thing.vercel.app/products/" + id,
         });
         // console.log("Shared successfully");
       } catch (error) {

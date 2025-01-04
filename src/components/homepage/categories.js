@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ShoppingBag,
   Watch,
@@ -7,13 +9,26 @@ import {
   Gift,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default async function Categories() {
-  const data = await fetch(
-    process.env.NEXT_PUBLIC_STORE_URL + "products/categories"
-  );
-  const categories = await data.json();
+export default function Categories() {
+  const [categories, setcategories] = useState([]);
+
+  const getData = async () => {
+    try {
+      const data = await fetch(
+        process.env.NEXT_PUBLIC_STORE_URL + "products/categories"
+      );
+      const cat = await data.json();
+      setcategories(cat);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   // console.log(categories);
   return (

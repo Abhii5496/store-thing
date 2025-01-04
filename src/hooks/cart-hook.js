@@ -39,7 +39,7 @@ export const useCart = () => {
     setLoading(true);
     try {
       const { data } = await axios.get("/api/cart/get");
-      console.log(data);
+      // console.log(data);
       setCartList(data.data);
       setTotalAmount(data.totalPrice);
     } catch (error) {

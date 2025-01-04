@@ -70,7 +70,7 @@ export default function Filters({ filters, handleFilterChange, setFilters }) {
           </CardContent>
         </div>
 
-        {open && (
+        {!open && (
           <div className="w-full pb-10 sm:pb-0">
             <div className="flex justify-end sm:justify-between items-center mb-4">
               <h2 className="text-lg font-semibold hidden sm:block">Filters</h2>
