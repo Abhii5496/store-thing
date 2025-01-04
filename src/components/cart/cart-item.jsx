@@ -1,32 +1,30 @@
-"use client";
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function CartItem({ item, removeFromCart, updateCart }) {
-  const router = useRouter();
   return (
     <Card>
       <CardContent className="flex gap-4 p-4">
         <div className="flex items-center sm:items-start sm:flex-row flex-col gap-4 p-4 w-full">
-          <div
-            className="h-24 w-24 flex-shrink-0 bg-gray-100 relative"
-            onClick={() => router.push(`/products/${item.productId}`)}
-          >
-            <Image
-              fill
-              src={item.image}
-              alt={item.title}
-              className="absolute object-contain"
-            />
+          <div className="h-24 w-24 flex-shrink-0 bg-gray-100 relative">
+            <Link href={"/products/" + item.productId}>
+              <Image
+                fill
+                src={item.image}
+                alt={item.title}
+                className="absolute object-contain"
+              />
+            </Link>
           </div>
           <div className="flex flex-col w-full">
-            <div onClick={() => router.push(`/products/${item.productId}`)}>
-              <h3 className="font-medium">{item.title}</h3>
+            <div>
+              <Link href={"/products/" + item.productId}>
+                <h3 className="font-medium">{item.title}</h3>
+              </Link>
             </div>
             <div className="flex justify-between w-full ">
               <div className="space-y-1">

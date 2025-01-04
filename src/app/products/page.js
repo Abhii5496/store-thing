@@ -4,10 +4,10 @@ import LoadingFallback from "../loading";
 
 export default function page() {
   return (
-    <div className="container mx-auto p-8">
-      <Suspense fallback={<LoadingFallback />}>
+    <Suspense fallback={<LoadingFallback />}>
+      <div className="container mx-auto p-8">
         <ProductListing />
-      </Suspense>
-    </div>
+      </div>
+    </Suspense>
   );
 }

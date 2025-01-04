@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Hero() {
   const [api, setApi] = React.useState();
@@ -47,7 +46,6 @@ export default function Hero() {
     );
   }
   // console.log(data);
-  const router = useRouter();
   return (
     <Carousel
       plugins={[plugin.current]}
@@ -58,45 +56,44 @@ export default function Hero() {
       <CarouselContent>
         {data.map((item, index) => (
           <CarouselItem key={index}>
-            <div
-              className="p-1 h-[400px] sm:h-[600px] cursor-pointer"
-              onClick={() => router.push(`/products/${item?.id}`)}
-            >
-              <Card className="h-full border-none relative bg-gradient-to-r  from-gray-400 via-gray-500 to-gray-600 ">
-                <CardContent className="relative w-full flex items-center justify-center p-6 h-full">
-                  <div className="w-full h-full justify-center items-center flex ">
-                    <div className="w-full sm:w-1/3 h-full relative">
-                      <Image
-                        src={item.image}
-                        className="absolute inset-0 w-full sm:w-1/4 mix-blend-darken sm:p-10 z-10"
-                        fill
-                        alt={item.title}
-                      />
+            <Link href={"/products/" + item.id}>
+              <div className="p-1 h-[400px] sm:h-[600px]">
+                <Card className="h-full border-none relative bg-gradient-to-r  from-gray-400 via-gray-500 to-gray-600 ">
+                  <CardContent className="relative w-full flex items-center justify-center p-6 h-full">
+                    <div className="w-full h-full justify-center items-center flex ">
+                      <div className="w-full sm:w-1/3 h-full relative">
+                        <Image
+                          src={item.image}
+                          className="absolute inset-0 w-full sm:w-1/4 mix-blend-darken sm:p-10 z-10"
+                          fill
+                          alt={item.title}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="absolute h-full top-0 left-0 p-10 w-full sm:w-2/4 z-20 sm:z-0 flex justify-center items-center sm:justify-start sm:items-start">
-                    <span
-                      style={{ lineHeight: 1 }}
-                      className="text-4xl text-center sm:text-start sm:text-[70px] font-semibold  text-white line-clamp-4"
-                    >
-                      {item.title}
-                    </span>
-                  </div>
-                  <div className="absolute h-full bottom-0 right-0 p-10 w-full sm:w-2/4 z-0 hidden sm:flex justify-end items-center ">
-                    <span className="uppercase text-lg text-white">
-                      designed to &bull;
-                      <br /> stand out &bull;{" "}
-                    </span>
-                  </div>
-                  <div className="absolute h-40 bottom-0 left-0 p-10 w-40 sm:w-2/4 z-0 sm:flex justify-start hidden">
-                    <span className="uppercase text-lg text-white ">
-                      &bull;{item.category}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                    <div className="absolute h-full top-0 left-0 p-10 w-full sm:w-2/4 z-20 sm:z-0 flex justify-center items-center sm:justify-start sm:items-start">
+                      <span
+                        style={{ lineHeight: 1 }}
+                        className="text-4xl text-center sm:text-start sm:text-[70px] font-semibold  text-white line-clamp-4"
+                      >
+                        {item.title}
+                      </span>
+                    </div>
+                    <div className="absolute h-full bottom-0 right-0 p-10 w-full sm:w-2/4 z-0 hidden sm:flex justify-end items-center ">
+                      <span className="uppercase text-lg text-white">
+                        designed to &bull;
+                        <br /> stand out &bull;{" "}
+                      </span>
+                    </div>
+                    <div className="absolute h-40 bottom-0 left-0 p-10 w-40 sm:w-2/4 z-0 sm:flex justify-start hidden">
+                      <span className="uppercase text-lg text-white ">
+                        &bull;{item.category}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>
