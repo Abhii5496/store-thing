@@ -10,9 +10,33 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useWishlist } from "@/hooks/wishlist-hook";
 import { useCart } from "@/hooks/cart-hook";
+import Loading from "@/components/ui/loading";
 
-export default function ProductDetail({ data }) {
+export default function ProductDetail({ id }) {
   const [qty, setqty] = useState(0);
+  const [data, setData] = useState("");
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [isIncart, setisIncart] = useState(false);
+
+  // console.log(id);
+  const getData = async () => {
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_STORE_URL + "products/" + id
+      );
+      const data = await res.json();
+      setData(data);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getData();
+    }
+  }, [id]);
 
   const { status, data: user } = useSession();
 
@@ -21,15 +45,27 @@ export default function ProductDetail({ data }) {
 
   const { addToCart, updateCart, cartList, removeFromCart } = useCart();
 
-  const isInWishlist =
-    wishlist &&
-    wishlist.length > 0 &&
-    wishlist.some((item) => Number(item.productId) === data.id);
+  useEffect(() => {
+    if (data && wishlist) {
+      const isWish =
+        wishlist &&
+        data &&
+        wishlist.length > 0 &&
+        wishlist.some((item) => Number(item.productId) === data.id);
+      setIsInWishlist(isWish);
+    }
+  }, [data, wishlist]);
 
-  const isInCart =
-    cartList &&
-    cartList.length > 0 &&
-    cartList.some((item) => Number(item.productId) === data.id);
+  useEffect(() => {
+    if (data && cartList) {
+      const inCart =
+        cartList &&
+        data &&
+        cartList.length > 0 &&
+        cartList.some((item) => Number(item.productId) === data.id);
+      setisIncart(inCart);
+    }
+  }, [data, cartList]);
 
   // console.log(isInCart, cartList, qty);
 
@@ -70,6 +106,15 @@ export default function ProductDetail({ data }) {
     }
   };
 
+  if (!data) {
+    return (
+      <div className="min-h-[400px] min-w-full justify-center flex items-center">
+        <Loading />
+      </div>
+    );
+  }
+  console.log(!data);
+
   return (
     <div className="container mx-auto">
       <div className="px-4 sm:px-10 pt-10 flex justify-between items-center">
@@ -95,7 +140,6 @@ export default function ProductDetail({ data }) {
         <div className="w-full sm:w-1/3 sm:justify-end flex ">
           <Card className="relative h-[300px] w-full lg:w-[300px] aspect-square ">
             <Image
-              priority
               className="absolute object-contain p-4"
               fill
               alt={data?.title}
@@ -106,13 +150,13 @@ export default function ProductDetail({ data }) {
         <div className="w-full sm:w-2/3">
           <h1 className="text-2xl sm:text-3xl font-semibold">{data?.title}</h1>
           <h3 className="text-xl font-medium py-3">
-            ${(data?.price).toFixed(2)}
+            ${data?.price?.toFixed(2)}
           </h3>
           <div className="flex gap-10 py-5 ">
             <Button onClick={handleAddToCart} className="border border-primary">
               {isInCart
-                ? `Delete - ${(qty * data?.price).toFixed(3)}$`
-                : `Add to cart - ${(data?.price).toFixed(2)}$`}
+                ? `Delete - ${(qty * data?.price)?.toFixed(3)}$`
+                : `Add to cart - ${data?.price?.toFixed(2)}$`}
             </Button>
 
             {isInCart && (

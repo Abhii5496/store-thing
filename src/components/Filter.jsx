@@ -26,6 +26,7 @@ import {
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
+import LoadingFallback from "@/app/loading";
 
 export default function Filters({ filters, handleFilterChange, setFilters }) {
   const router = useRouter();
@@ -55,7 +56,7 @@ export default function Filters({ filters, handleFilterChange, setFilters }) {
     router.push("/products");
   };
   return (
-    <Suspense>
+    <Suspense fallback={<LoadingFallback />}>
       <aside className="w-1/4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Filters</h2>

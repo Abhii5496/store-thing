@@ -5,6 +5,7 @@ import React, { Suspense, useState } from "react";
 import WishlistCard from "./wishlist-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import LoadingFallback from "../loading";
 
 export default function page() {
   const { wishlist, removeFromWishlist, loading } = useWishlist();
@@ -16,7 +17,7 @@ export default function page() {
     : wishlist;
 
   return (
-    <Suspense fallback="loading">
+    <Suspense fallback={<LoadingFallback />}>
       <div className="max-w-5xl  mx-auto">
         <div className="p-10 ">
           <h1 className="text-center text-3xl font-semibold">Wishlist</h1>

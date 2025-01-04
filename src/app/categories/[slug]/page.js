@@ -1,3 +1,4 @@
+import LoadingFallback from "@/app/loading";
 import ErrorFallback from "@/components/ErrorFallback";
 import BackButton from "@/components/ui/BackButton";
 import { Card } from "@/components/ui/card";
@@ -20,7 +21,7 @@ export default async function page({ params }) {
   }
 
   return (
-    <Suspense fallback={"Loading.."}>
+    <Suspense fallback={<LoadingFallback />}>
       <div className="container px-4 mx-auto">
         <div className="pt-10 pl-2 sm:pl-0 pb-4 ">
           <BackButton />
@@ -29,7 +30,7 @@ export default async function page({ params }) {
           <h1 className="py-5 text-2xl font-li capitalize">
             Category -{decodeURIComponent(slug)}
           </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 pb-10 sm:pb-20">
             {data.map((item, i) => (
               <ProductCard
                 key={i}

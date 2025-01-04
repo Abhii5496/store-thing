@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { actions: action } = await res.params;
 
   const session = await getServerSession();
-  console.log(session, "se");
+  // console.log(session, "se");
   if (!session) {
     return NextResponse.json({ error: "Unauthorized", status: 401 });
   }

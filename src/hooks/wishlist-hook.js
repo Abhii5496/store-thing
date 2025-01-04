@@ -24,7 +24,7 @@ export const useWishlist = () => {
     }
   }, [status, wish]);
 
-  console.log("wishlist-hook", wishlist);
+  // console.log("wishlist-hook", wishlist);
 
   const fetchWishlist = async () => {
     setLoading(true);
