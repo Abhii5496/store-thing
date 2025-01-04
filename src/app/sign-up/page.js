@@ -1,6 +1,9 @@
 import { SignupForm } from "@/components/signup-form";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "Sign Up | StoreThing",
+};
 export default function Page() {
   return (
     <Suspense fallback="loading">

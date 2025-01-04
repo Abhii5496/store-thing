@@ -36,7 +36,7 @@ export default async function handler(req, res) {
           const body = await req.json();
 
           const { id, title, price, image, quantity = 1 } = body;
-          console.log(id, title, price, image, quantity);
+          // console.log(id, title, price, image, quantity);
 
           const cart = await Cart.findOneAndUpdate(
             { user: user._id },

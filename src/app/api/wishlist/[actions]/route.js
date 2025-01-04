@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { actions: action } = await res.params;
 
   const session = await getServerSession();
-  console.log(session, "se");
+  // console.log(session, "se");
   if (!session) {
     return NextResponse.json({ error: "Unauthorized", status: 401 });
   }
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   const email = session.user?.email;
   await connectDB();
   const user = await User.findOne({ email });
-  console.log("user", user);
+  // console.log("user", user);
 
   if (!user) return NextResponse.json({ error: "Unauthenticated" });
 
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
         if (req.method === "POST") {
           const { productId } = await req.json();
 
-          console.log(productId);
+          // console.log(productId);
 
           const wishlist = await Wishlist.findOneAndUpdate(
             { user: user._id },

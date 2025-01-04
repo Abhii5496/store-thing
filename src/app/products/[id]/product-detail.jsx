@@ -31,12 +31,12 @@ export default function ProductDetail({ data }) {
     cartList.length > 0 &&
     cartList.some((item) => Number(item.productId) === data.id);
 
-  console.log(isInCart, cartList, qty);
+  // console.log(isInCart, cartList, qty);
 
   useEffect(() => {
     if (cartList && cartList.length > 0 && isInCart) {
       const item = cartList.find((x) => Number(x.productId) === data.id);
-      console.log(item);
+      // console.log(item);
       setqty(item.quantity);
     }
   }, [cartList]);
@@ -93,7 +93,7 @@ export default function ProductDetail({ data }) {
       </div>
       <div className="flex sm:flex-row flex-col p-5 sm:p-20 sm:pt-10 gap-20">
         <div className="w-full sm:w-1/3 sm:justify-end flex ">
-          <Card className="relative h-[300] w-full lg:w-[300px] ">
+          <Card className="relative h-[300px] w-full lg:w-[300px] aspect-square ">
             <Image
               priority
               className="absolute object-contain p-4"
@@ -108,8 +108,7 @@ export default function ProductDetail({ data }) {
           <h3 className="text-xl font-medium py-3">
             ${(data?.price).toFixed(2)}
           </h3>
-          <p className="text-sm sm:h-[115px] ">{data?.description}</p>
-          <div className="flex gap-10 pt-5 ">
+          <div className="flex gap-10 py-5 ">
             <Button onClick={handleAddToCart} className="border border-primary">
               {isInCart
                 ? `Delete - ${(qty * data?.price).toFixed(3)}$`
@@ -140,6 +139,7 @@ export default function ProductDetail({ data }) {
               </div>
             )}
           </div>
+          <p className="text-sm  ">{data?.description}</p>
         </div>
       </div>
     </div>

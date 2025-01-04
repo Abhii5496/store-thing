@@ -1,6 +1,8 @@
 import { LoginForm } from "@/components/login-form";
 import { Suspense } from "react";
-
+export const metadata = {
+  title: "Login | StoreThing",
+};
 export default function Page() {
   return (
     <Suspense fallback="loading">

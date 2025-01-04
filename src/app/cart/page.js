@@ -1,7 +1,9 @@
-"use client";
-
 import ShoppingCart from "@/components/cart/cart";
 import React, { Suspense } from "react";
+
+export const metadata = {
+  title: "Cart | StoreThing",
+};
 
 export default function page() {
   return (

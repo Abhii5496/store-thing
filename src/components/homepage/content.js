@@ -67,6 +67,7 @@ export default async function Content() {
                 <Image
                   src="https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
                   fill
+                  alt="Image"
                   className="absolute object-contain mix-blend-multiply sm:bottom-0 sm:right-10 z-0"
                 />
               </div>
