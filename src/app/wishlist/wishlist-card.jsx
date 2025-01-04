@@ -1,13 +1,17 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const WishlistCard = ({ item, removeFromWishlist }) => {
   const { productId, image, title, price } = item;
   // console.log({ productId, image, title, price });
+
+  const router = useRouter();
   return (
     <Card className="border-none bg-accent hover:bg-muted/50 hover:scale-105 transition-all duration-300 ">
       <CardContent className="p-0 relative">
@@ -20,22 +24,23 @@ const WishlistCard = ({ item, removeFromWishlist }) => {
         >
           <Heart className="fill-red-500 outline-none stroke-none " size={20} />
         </span>
-        <Link href={`/products/${productId}`}>
-          <div className="relative aspect-square">
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="rounded-t-lg p-10 mix-blend-multiply"
-            />
-          </div>
-        </Link>
-        <Link href={`/products/${productId}`}>
-          <div className="p-4">
-            <h3 className="font-medium line-clamp-1">{title}</h3>
-            <p className="text-primary mt-1">${price}</p>
-          </div>
-        </Link>
+
+        <div
+          className="relative aspect-square cursor-pointer"
+          onClick={() => router.push(`/products/${productId}`)}
+        >
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="rounded-t-lg p-10 mix-blend-multiply"
+          />
+        </div>
+
+        <div className="p-4">
+          <h3 className="font-medium line-clamp-1">{title}</h3>
+          <p className="text-primary mt-1">${price}</p>
+        </div>
       </CardContent>
     </Card>
   );
