@@ -19,7 +19,7 @@ export const useCart = () => {
     updateLocalCart,
   } = useLocalData();
 
-  console.log("Cart-hook:", cartList);
+  // console.log("Cart-hook:", cartList);
 
   useEffect(() => {
     if (status === "authenticated") {

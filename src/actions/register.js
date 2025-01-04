@@ -9,7 +9,7 @@ export const registerUser = async (values) => {
   try {
     await connectDB();
     const userFound = await User.findOne({ email });
-    console.log(userFound, ":user");
+    // console.log(userFound, ":user");
     if (userFound) {
       return {
         error: "Email already exists!",

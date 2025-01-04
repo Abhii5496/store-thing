@@ -20,7 +20,7 @@ import {
   useSearchParams,
 } from "next/navigation";
 
-export default function ListingProducts() {
+export default function page() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -152,12 +152,12 @@ export default function ListingProducts() {
     }
   }, [filteredData]);
 
-  //   console.log("Original :", data);
-  //   console.log("Filtered :", filteredData);
-  //   console.log("Paginated :", paginatedData);
+  //   console.log("original :", data);
+  //   console.log("filtered :", filteredData);
+  //   console.log("ppaginated :", paginatedData);
 
   return (
-    <Suspense fallback={"loading.."}>
+    <Suspense>
       <div className="container mx-auto p-8">
         {/* Header */}
         <header className="mb-8">
