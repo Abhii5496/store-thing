@@ -79,7 +79,7 @@ export default function ProductListing() {
 
     const params = new URLSearchParams(searchParams.toString());
 
-    console.log(value, params.get(name), "params");
+    // console.log(value, params.get(name), "params");
     if (value && params.get(name) !== value) {
       params.set(name, value);
     } else {
@@ -168,7 +168,7 @@ export default function ProductListing() {
       </header>
 
       {/* Main Content */}
-      <div className="flex space-x-8 gap-10">
+      <div className="flex flex-col sm:flex-row sm:space-x-8 gap-10">
         {/* Filters */}
         <Filter
           filters={filters}
@@ -176,7 +176,7 @@ export default function ProductListing() {
           handleFilterChange={handleFilterChange}
         />
         {/* Products */}
-        <section className="w-3/4">
+        <section className="w-full sm:w-3/4">
           <div className="flex justify-end items-center mb-6">
             <h2 className="text-md ">
               Showing {!!filteredData && filteredData.length} Products

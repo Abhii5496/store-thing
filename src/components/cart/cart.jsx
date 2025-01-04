@@ -8,6 +8,8 @@ import Image from "next/image";
 import CartItem from "./cart-item";
 import { useCart } from "@/hooks/cart-hook";
 import { Skeleton } from "../ui/skeleton";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 export default function ShoppingCart() {
   const {
@@ -18,6 +20,16 @@ export default function ShoppingCart() {
     totalAmount,
     emptyCart,
   } = useCart();
+
+  const { status } = useSession();
+
+  const handleCheckout = async () => {
+    if (status === "authenticated") {
+      await emptyCart();
+    } else {
+      toast.info("Please login to checkout");
+    }
+  };
 
   return (
     <div className="sm:min-h-[400px] bg-gray-50">
@@ -105,7 +117,7 @@ export default function ShoppingCart() {
                         <span>${totalAmount.toFixed(3)}</span>
                       </div>
                     </div>
-                    <Button className="w-full" onClick={emptyCart}>
+                    <Button className="w-full" onClick={handleCheckout}>
                       Continue to checkout
                     </Button>
                   </div>

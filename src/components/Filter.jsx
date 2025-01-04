@@ -23,15 +23,17 @@ import {
   useRouter,
   useSearchParams,
 } from "next/navigation";
-import { Star } from "lucide-react";
+import { Filter, FilterX, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import LoadingFallback from "@/app/loading";
+import { Card, CardContent } from "./ui/card";
 
 export default function Filters({ filters, handleFilterChange, setFilters }) {
   const router = useRouter();
 
-  const [cat, setCat] = useState();
+  const [cat, setCat] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const getData = async () => {
     const res = await fetch(
@@ -57,111 +59,131 @@ export default function Filters({ filters, handleFilterChange, setFilters }) {
   };
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <aside className="w-1/4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Filters</h2>
-          <Button
-            variant="link"
-            className="text-sm text-gray-500"
-            onClick={clearFilters}
-          >
-            Clear filters
-          </Button>
+      <aside className="w-full sm:w-1/4 sticky top-14  p-2 bg-card z-30 ">
+        <div className="block sm:hidden">
+          <CardContent className="flex justify-between items-center py-2 px-0 ">
+            <h2 className="text-lg font-semibold">Filters</h2>
+
+            <Button variant="" onClick={() => setOpen(!open)}>
+              {open ? <FilterX /> : <Filter />}
+            </Button>
+          </CardContent>
         </div>
 
-        {/* Categories */}
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold mb-2">Categories</h3>
-          <div className="space-y-2">
-            {!!cat
-              ? cat.map((category) => (
-                  <div className="flex items-center space-x-2" key={category}>
+        {open && (
+          <div className="w-full pb-10 sm:pb-0">
+            <div className="flex justify-end sm:justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold hidden sm:block">Filters</h2>
+              <Button
+                variant="link"
+                className="text-sm text-gray-500"
+                onClick={clearFilters}
+              >
+                Clear filters
+              </Button>
+            </div>
+
+            {/* Categories */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold mb-2">Categories</h3>
+              <div className="space-y-2">
+                {!!cat
+                  ? cat.map((category) => (
+                      <div
+                        className="flex items-center space-x-2"
+                        key={category}
+                      >
+                        <Checkbox
+                          id={category}
+                          checked={filters.category === category}
+                          onCheckedChange={() =>
+                            handleFilterChange("category", category)
+                          }
+                        />
+                        <label
+                          htmlFor={category}
+                          className="text-sm capitalize"
+                        >
+                          {category}
+                        </label>
+                      </div>
+                    ))
+                  : [...Array(4)].map((_, i) => (
+                      <Skeleton
+                        className="w-full h-6 bg-gray-400 rounded-lg"
+                        key={i}
+                      />
+                    ))}
+              </div>
+            </div>
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold mb-2">Rating</h3>
+              <div className="space-y-2">
+                {[1, 2, 3, 4, 5].map((rate) => (
+                  <div className="flex items-center space-x-2" key={rate}>
                     <Checkbox
-                      id={category}
-                      checked={filters.category === category}
+                      id={rate}
+                      checked={filters.rating == rate}
                       onCheckedChange={() =>
-                        handleFilterChange("category", category)
+                        handleFilterChange("rating", rate + "")
                       }
                     />
-                    <label htmlFor={category} className="text-sm capitalize">
-                      {category}
+                    <label
+                      htmlFor={rate}
+                      className="text-sm capitalize flex gap-1 flex-row"
+                    >
+                      {[...Array(rate)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={20}
+                          className={cn(
+                            "text-black fill-accent",
+                            filters.rating == rate ? "fill-black" : ""
+                          )}
+                        />
+                      ))}
                     </label>
                   </div>
-                ))
-              : [...Array(4)].map((_, i) => (
-                  <Skeleton
-                    className="w-full h-6 bg-gray-400 rounded-lg"
-                    key={i}
-                  />
                 ))}
-          </div>
-        </div>
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold mb-2">Rating</h3>
-          <div className="space-y-2">
-            {[1, 2, 3, 4, 5].map((rate) => (
-              <div className="flex items-center space-x-2" key={rate}>
-                <Checkbox
-                  id={rate}
-                  checked={filters.rating == rate}
-                  onCheckedChange={() =>
-                    handleFilterChange("rating", rate + "")
-                  }
-                />
-                <label
-                  htmlFor={rate}
-                  className="text-sm capitalize flex gap-1 flex-row"
-                >
-                  {[...Array(rate)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={20}
-                      className={cn(
-                        "text-black fill-accent",
-                        filters.rating == rate ? "fill-black" : ""
-                      )}
-                    />
-                  ))}
-                </label>
               </div>
-            ))}
+            </div>
+
+            {/* Sorting */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold mb-2">Sort By</h3>
+              <Select
+                value={filters.sortby}
+                onValueChange={(e) => handleFilterChange("sortby", e)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="asc">Asc</SelectItem>
+                  <SelectItem value="desc">Desc</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Price Range */}
+            <div>
+              <h3 className="text-sm font-semibold mb-2">Prices</h3>
+              <p className="text-sm mb-2">
+                Range: ${filters.priceRange[0].toFixed(2)} - $
+                {filters.priceRange[1].toFixed(2)}
+              </p>
+              <Slider
+                defaultValue={filters.priceRange}
+                min={0}
+                max={1100}
+                step={1}
+                onValueChange={(e) => {
+                  handleFilterChange("priceRange", e);
+                }}
+              />
+            </div>
           </div>
-        </div>
-
-        {/* Sorting */}
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold mb-2">Sort By</h3>
-          <Select
-            value={filters.sortby}
-            onValueChange={(e) => handleFilterChange("sortby", e)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="select" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="asc">Asc</SelectItem>
-              <SelectItem value="desc">Desc</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Price Range */}
-        <div>
-          <h3 className="text-sm font-semibold mb-2">Prices</h3>
-          <p className="text-sm mb-2">
-            Range: ${filters.priceRange[0].toFixed(2)} - $
-            {filters.priceRange[1].toFixed(2)}
-          </p>
-          <Slider
-            defaultValue={filters.priceRange}
-            min={0}
-            max={1100}
-            step={1}
-            onValueChange={(e) => {
-              handleFilterChange("priceRange", e);
-            }}
-          />
-        </div>
+        )}
       </aside>
     </Suspense>
   );

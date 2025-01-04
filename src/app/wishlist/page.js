@@ -11,7 +11,7 @@ export default function page() {
   const { wishlist, removeFromWishlist, loading } = useWishlist();
   const [showAll, setShowAll] = useState(false);
 
-  console.log(loading);
+  // console.log(loading);
   const products = !showAll
     ? wishlist && wishlist.length > 0 && wishlist.slice(0, 4)
     : wishlist;

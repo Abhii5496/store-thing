@@ -21,7 +21,7 @@ export default async function page() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
             {data.map((item, i) => (
               <Link href={`categories/${item}`} key={i}>
-                <Card className="border-none hover:bg-primary/30 bg-accent rounded-none hover:-translate-y-2 transform transition-all duration-300">
+                <Card className="rounded-xl border-none hover:bg-primary/30 bg-accent hover:-translate-y-2 transform transition-all duration-300">
                   <CardContent className="flex justify-start items-center h-full p-6">
                     <h3 className="text-xl font-medium capitalize ">{item}</h3>
                   </CardContent>

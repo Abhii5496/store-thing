@@ -14,6 +14,8 @@ export default async function Categories() {
     process.env.NEXT_PUBLIC_STORE_URL + "products/categories"
   );
   const categories = await data.json();
+
+  // console.log(categories);
   return (
     <section className="py-12 container mx-auto px-4">
       <div className="flex justify-between items-center mb-8">
@@ -30,7 +32,7 @@ export default async function Categories() {
           <Link
             key={category}
             href={`/categories/${category}`}
-            className="flex flex-col capitalize justify-start items-start w-full bg-primary/10 p-4 rounded-lg hover:bg-primary/30 transition-colors"
+            className="flex flex-col capitalize justify-start items-start w-full bg-primary/10 p-4 rounded-xl hover:bg-primary/30 transition-colors"
           >
             {category}
           </Link>

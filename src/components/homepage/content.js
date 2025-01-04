@@ -60,9 +60,11 @@ export default async function Content() {
                 <br />
                 Online.
               </h2>
-              <Button variant="secondary" className="mt-4 relative z-10">
-                Shop Now
-              </Button>
+              <Link href="/categories/electronics">
+                <Button variant="secondary" className="mt-4 relative z-10">
+                  Shop Now
+                </Button>
+              </Link>
               <div className="absolute bottom-0 right-10 h-full w-32 sm:w-60 lg:w-80 ">
                 <Image
                   src="https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
@@ -85,9 +87,11 @@ export default async function Content() {
                     <br />
                     accessories collection
                   </h3>
-                  <Button variant="link" className="pl-0 mt-2">
-                    Shop Now
-                  </Button>
+                  <Link href="/products">
+                    <Button variant="link" className="pl-0 mt-2">
+                      Shop Now
+                    </Button>
+                  </Link>
                 </div>
                 <div className="relative w-32 h-32">
                   <Image
@@ -118,9 +122,11 @@ export default async function Content() {
                     <br />
                     collection
                   </h3>
-                  <Button variant="link" className="pl-0 mt-2">
-                    Shop Now
-                  </Button>
+                  <Link href="/products">
+                    <Button variant="link" className="pl-0 mt-2">
+                      Shop Now
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -146,7 +152,9 @@ export default async function Content() {
                     <br />
                     our latest fashion finds
                   </p>
-                  <Button className="bg-primary">Shop Now</Button>
+                  <Link href="/products">
+                    <Button className="bg-primary">Shop Now</Button>
+                  </Link>
                 </div>
                 <div className="relative">
                   <Image
@@ -171,7 +179,9 @@ export default async function Content() {
                   <br />
                   purchase
                 </p>
-                <Button variant="secondary">Get discount</Button>
+                <Link href="/products">
+                  <Button variant="secondary">Get discount</Button>
+                </Link>
               </CardContent>
             </Card>
           </div>

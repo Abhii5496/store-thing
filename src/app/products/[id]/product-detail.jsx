@@ -16,7 +16,7 @@ export default function ProductDetail({ id }) {
   const [qty, setqty] = useState(0);
   const [data, setData] = useState("");
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [isIncart, setisIncart] = useState(false);
+  const [isInCart, setisIncart] = useState(false);
 
   // console.log(id);
   const getData = async () => {
@@ -67,15 +67,17 @@ export default function ProductDetail({ id }) {
     }
   }, [data, cartList]);
 
-  // console.log(isInCart, cartList, qty);
+  console.log(isInCart, cartList, qty);
 
   useEffect(() => {
     if (cartList && cartList.length > 0 && isInCart) {
       const item = cartList.find((x) => Number(x.productId) === data.id);
       // console.log(item);
-      setqty(item.quantity);
+      if (item) {
+        setqty(item.quantity);
+      }
     }
-  }, [cartList]);
+  }, [cartList, isInCart]);
 
   // handle product for wishlistt
   const handleWishlistToggle = async () => {
@@ -163,7 +165,7 @@ export default function ProductDetail({ id }) {
               <div className="flex border w-fit border-black justify-center items-center">
                 <Button
                   variant="secondary"
-                  className="hover:bg-primary w-6"
+                  className="hover:bg-primary rounded-none w-6"
                   onClick={() => {
                     qty > 1
                       ? updateCart(data.id, qty - 1)
@@ -175,7 +177,7 @@ export default function ProductDetail({ id }) {
                 <p className="w-6 text-center">{qty}</p>
                 <Button
                   variant="secondary"
-                  className="hover:bg-primary w-6"
+                  className="hover:bg-primary rounded-none w-6"
                   onClick={() => updateCart(data.id, qty + 1)}
                 >
                   <PlusIcon />
