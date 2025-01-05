@@ -7,6 +7,7 @@ import { Share } from "lucide-react";
 export default function ShareComponent({ id, title }) {
   const [isMobile, setIsMobile] = useState(false);
 
+  const url = "https://store-thing.vercel.app/products/" + id;
   useEffect(() => {
     // Detect if the device is mobile
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -18,7 +19,7 @@ export default function ShareComponent({ id, title }) {
       try {
         await navigator.share({
           title,
-          url: "https://store-thing.vercel.app/products/" + id,
+          url,
         });
         // console.log("Shared successfully");
       } catch (error) {

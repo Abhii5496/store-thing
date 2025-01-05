@@ -13,7 +13,7 @@ export function Header() {
   // console.log(data);
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -72,7 +72,7 @@ export function Header() {
                   </Button>
                 </PopoverTrigger>
 
-                <PopoverContent>
+                <PopoverContent className="rounded-xl">
                   <div className="flex gap-2">
                     <Avatar className="bg-muted flex justify-center items-center">
                       <User />
@@ -96,17 +96,17 @@ export function Header() {
               </Popover>
             ) : (
               <Link href="/login">
-                <Button variant="ghost" href="whist" size="icon">
-                  <User className="w-5 h-5" />
-                </Button>
+                <Button variant="">Login</Button>
               </Link>
             )}
 
-            <Link href="/wishlist">
-              <Button href="whist" size="icon">
-                <Heart className="w-5 h-5" />
-              </Button>
-            </Link>
+            {status === "authenticated" && (
+              <Link href="/wishlist">
+                <Button size="icon">
+                  <Heart className="w-5 h-5" />
+                </Button>
+              </Link>
+            )}
             <Link href="/cart">
               <Button size="icon">
                 <ShoppingCart className="w-5 h-5" />

@@ -18,11 +18,11 @@ export const useWishlist = () => {
     }
   }, [status]);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      setWishlist(wish);
-    }
-  }, [status, wish]);
+  // useEffect(() => {
+  //   if (status === "unauthenticated") {
+  //     setWishlist(wish);
+  //   }
+  // }, [status, wish]);
 
   // console.log("wishlist-hook", wishlist);
 
@@ -45,9 +45,10 @@ export const useWishlist = () => {
         if (status === "authenticated") {
           const { data } = await axios.post("/api/wishlist/add", product);
           setWishlist(data.data);
-        } else {
-          addLocalWish({ ...product, productId: product.id });
         }
+        // else {
+        //   addLocalWish({ ...product, productId: product.id });
+        // }
         toast.success("Added to wishlist");
       } catch (error) {
         console.error("Error adding to wishlist:", error);
@@ -68,9 +69,11 @@ export const useWishlist = () => {
           });
           setWishlist(data.data);
           // console.log("hookRem", data);
-        } else {
-          removeLocalWish(productId);
         }
+
+        // else {
+        //   removeLocalWish(productId);
+        // }
         toast.success("Removed from wishlist");
       } catch (error) {
         console.error("Error removing from wishlist:", error);

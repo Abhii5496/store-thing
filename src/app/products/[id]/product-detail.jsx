@@ -115,25 +115,27 @@ export default function ProductDetail({ id }) {
       </div>
     );
   }
-  console.log(!data);
+  // console.log(!data);
 
   return (
     <div className="container mx-auto">
       <div className="px-4 sm:px-10 pt-10 flex justify-between items-center">
         <BackButton />
         <div className="flex gap-5">
-          <Button
-            variant={isInWishlist ? "" : "secondary"}
-            onClick={handleWishlistToggle}
-          >
-            <HeartIcon
-              className={`${
-                isInWishlist
-                  ? "fill-red-500 outline-none stroke-none w-8 h-8"
-                  : ""
-              }`}
-            />
-          </Button>
+          {status === "authenticated" && (
+            <Button
+              variant={isInWishlist ? "" : "secondary"}
+              onClick={handleWishlistToggle}
+            >
+              <HeartIcon
+                className={`${
+                  isInWishlist
+                    ? "fill-red-500 outline-none stroke-none w-8 h-8"
+                    : ""
+                }`}
+              />
+            </Button>
+          )}
 
           <ShareComponent title={data?.title} id={data?.id} />
         </div>
@@ -162,7 +164,7 @@ export default function ProductDetail({ id }) {
             </Button>
 
             {isInCart && (
-              <div className="flex border w-fit border-black justify-center items-center">
+              <div className="flex border w-fit border-border overflow-hidden justify-center items-center rounded-xl">
                 <Button
                   variant="secondary"
                   className="hover:bg-primary rounded-none w-6"
