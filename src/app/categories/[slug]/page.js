@@ -16,10 +16,6 @@ export default async function page({ params }) {
   const data = await res.json();
   // console.log(data);
 
-  if (!data) {
-    return <ErrorFallback data={data} />;
-  }
-
   return (
     <Suspense fallback={<LoadingFallback />}>
       <div className="container px-4 mx-auto">

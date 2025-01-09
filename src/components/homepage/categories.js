@@ -1,35 +1,6 @@
-"use client";
-
-import {
-  ShoppingBag,
-  Watch,
-  Shirt,
-  FootprintsIcon as Shoe,
-  Package,
-  Gift,
-} from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
-export default function Categories() {
-  const [categories, setcategories] = useState([]);
-
-  const getData = async () => {
-    try {
-      const data = await fetch(
-        process.env.NEXT_PUBLIC_STORE_URL + "products/categories"
-      );
-      const cat = await data.json();
-      setcategories(cat);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+export default function Categories({ categories }) {
   // console.log(categories);
   return (
     <section className="py-12 container mx-auto px-4">

@@ -77,10 +77,14 @@ export async function generateMetadata({ params, searchParams }, parent) {
 export default async function page({ params }) {
   const id = (await params).id;
   // console.log(id)
+
+  const res = await fetch(process.env.NEXT_PUBLIC_STORE_URL + "products/" + id);
+  const data = await res.json();
+
   return (
     <Suspense fallback={<LoadingFallback />}>
       <div>
-        <ProductDetail id={id} />
+        <ProductDetail data={data} />
       </div>
     </Suspense>
   );

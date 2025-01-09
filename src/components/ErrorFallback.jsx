@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 
-const ErrorFallback = ({ data }) => {
+const ErrorFallback = ({ data = "" }) => {
   const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
