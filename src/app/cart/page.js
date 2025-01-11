@@ -9,9 +9,7 @@ export const metadata = {
 export default function page() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <div className="container mx-auto">
-        <ShoppingCart />
-      </div>
+      <div className="container mx-auto">{/* <ShoppingCart /> */}</div>
     </Suspense>
   );
 }
