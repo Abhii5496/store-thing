@@ -18,7 +18,7 @@ export default async function page() {
         </div>
         <div className="px-2 sm:ml-20 pb-20">
           <h1 className="py-5 text-4xl font-semibold">Categories</h1>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {data.map((item, i) => (
               <Link href={`categories/${item}`} key={i}>
                 <Card className="rounded-xl border-none hover:bg-primary/30 bg-accent hover:-translate-y-2 transform transition-all duration-300">
