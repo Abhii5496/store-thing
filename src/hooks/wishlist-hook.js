@@ -13,11 +13,11 @@ export const useWishlist = () => {
 
   const { wishlist: wish, addLocalWish, removeLocalWish } = useLocalData();
 
-  // useEffect(() => {
-  //   if (status === "authenticated") {
-  //     fetchWishlist();
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchWishlist();
+    }
+  }, [status]);
 
   // useEffect(() => {
   //   if (status === "unauthenticated") {
@@ -28,12 +28,14 @@ export const useWishlist = () => {
   // console.log("wishlist-hook", wishlist);
 
   const fetchWishlist = async () => {
-    const db = await connectDB();
-    console.log(db, "db..........");
+    if (status === "unauthenticated") {
+      return;
+    }
+    await connectDB();
     setLoading(true);
     try {
-      // const { data } = await axios.get("/api/wishlist/get");
-      // setWishlist(data.data);
+      const { data } = await axios.get("/api/wishlist/get");
+      setWishlist(data.data);
     } catch (error) {
       console.error("Error fetching wishlist:", error);
     } finally {
@@ -42,7 +44,13 @@ export const useWishlist = () => {
   };
 
   const addToWishlist = async (product) => {
+    if (status === "unauthenticated") {
+      return;
+    }
+
     if (!loading) {
+      await connectDB();
+
       setLoading(true);
       try {
         if (status === "authenticated") {
@@ -62,7 +70,12 @@ export const useWishlist = () => {
   };
 
   const removeFromWishlist = async (productId) => {
+    if (status === "unauthenticated") {
+      return;
+    }
     if (!loading) {
+      await connectDB();
+
       setLoading(true);
 
       try {

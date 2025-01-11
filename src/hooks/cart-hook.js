@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { calculateTotalPrice } from "@/lib/utils";
 import useLocalData from "@/lib/local-store";
+import { connectDB } from "@/lib/mongodb";
 
 export const useCart = () => {
   const [cartList, setCartList] = useState([]);
@@ -36,7 +37,12 @@ export const useCart = () => {
   }, [status, cart]);
 
   const fetchCartList = async () => {
+    if (status === "unauthenticated") {
+      return;
+    }
+
     setLoading(true);
+    await connectDB();
     try {
       const { data } = await axios.get("/api/cart/get");
       // console.log(data);
@@ -50,9 +56,14 @@ export const useCart = () => {
   };
 
   const addToCart = async (product) => {
+    if (status === "unauthenticated") {
+      return;
+    }
     const { id, quantity, image, title, price } = product;
     if (!loading) {
       setLoading(true);
+      await connectDB();
+
       try {
         if (status === "authenticated") {
           const { data } = await axios.post("/api/cart/add", {
@@ -79,6 +90,8 @@ export const useCart = () => {
   const updateCart = async (productId, quantity) => {
     if (!loading) {
       setLoading(true);
+      await connectDB();
+
       try {
         if (status === "authenticated") {
           const { data } = await axios.post("/api/cart/update", {
@@ -103,6 +116,8 @@ export const useCart = () => {
   const removeFromCart = async (productId) => {
     if (!loading) {
       setLoading(true);
+      await connectDB();
+
       try {
         if (status === "authenticated") {
           const { data } = await axios.post("/api/cart/remove", {
@@ -125,6 +140,8 @@ export const useCart = () => {
   const emptyCart = async () => {
     if (!loading) {
       setLoading(true);
+      await connectDB();
+
       try {
         if (status === "authenticated") {
           const { data } = await axios.get("/api/cart/empty");
