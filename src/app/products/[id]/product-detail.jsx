@@ -11,34 +11,18 @@ import { toast } from "sonner";
 import { useWishlist } from "@/hooks/wishlist-hook";
 import { useCart } from "@/hooks/cart-hook";
 import Loading from "@/components/ui/loading";
+import { usePathname, useRouter } from "next/navigation";
 
-export default function ProductDetail({ id }) {
+export default function ProductDetail({ data }) {
   const [qty, setqty] = useState(0);
-  const [data, setData] = useState("");
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isInCart, setisIncart] = useState(false);
 
-  // console.log(id);
-  const getData = async () => {
-    try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_STORE_URL + "products/" + id
-      );
-      const data = await res.json();
-      setData(data);
-      // console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { status } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  useEffect(() => {
-    if (id) {
-      getData();
-    }
-  }, [id]);
-
-  const { status, data: user } = useSession();
+  // console.log(pathname);
 
   const { wishlist, loading, addToWishlist, removeFromWishlist } =
     useWishlist();

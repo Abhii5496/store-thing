@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -15,25 +16,7 @@ import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 
-export default function Hero() {
-  const [api, setApi] = React.useState();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-  const [data, setData] = React.useState();
-
-  const getData = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_STORE_URL +
-        "products/category/women's clothing?limit=3"
-    );
-    const slideData = await res.json();
-    setData(slideData);
-  };
-
-  React.useEffect(() => {
-    getData();
-  }, []);
-
+export default function Hero({ data }) {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );

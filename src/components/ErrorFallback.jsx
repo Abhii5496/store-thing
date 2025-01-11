@@ -2,13 +2,20 @@
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 
-const ErrorFallback = ({ data }) => {
+const ErrorFallback = ({ data = "" }) => {
   const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     if (!data) {
       const interval = setInterval(() => {
-        setCountdown((prev) => prev - 1);
+        setCountdown((prev) => {
+          if (prev > 0) {
+            return prev - 1;
+          } else {
+            clearInterval(interval);
+            return 0;
+          }
+        });
       }, 1000);
 
       const timeout = setTimeout(() => {

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -13,26 +11,8 @@ import {
   Gift,
 } from "lucide-react";
 import { ProductCard } from "@/components/ui/product-card";
-import { useEffect, useState } from "react";
 
-export default function Content() {
-  const [newArrivals, setnewArrivals] = useState([]);
-  const getData = async () => {
-    try {
-      const data = await fetch(
-        process.env.NEXT_PUBLIC_STORE_URL + "products?limit=5"
-      );
-      const newArr = await data.json();
-
-      setnewArrivals(newArr);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+export default function Content({ newArrivals }) {
   return (
     <div>
       {/* New Arrivals */}

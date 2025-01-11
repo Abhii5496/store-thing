@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import useLocalData from "@/lib/local-store";
+import { connectDB } from "@/lib/mongodb";
 
 export const useWishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -12,11 +13,11 @@ export const useWishlist = () => {
 
   const { wishlist: wish, addLocalWish, removeLocalWish } = useLocalData();
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchWishlist();
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     fetchWishlist();
+  //   }
+  // }, [status]);
 
   // useEffect(() => {
   //   if (status === "unauthenticated") {
@@ -27,10 +28,12 @@ export const useWishlist = () => {
   // console.log("wishlist-hook", wishlist);
 
   const fetchWishlist = async () => {
+    const db = await connectDB();
+    console.log(db, "db..........");
     setLoading(true);
     try {
-      const { data } = await axios.get("/api/wishlist/get");
-      setWishlist(data.data);
+      // const { data } = await axios.get("/api/wishlist/get");
+      // setWishlist(data.data);
     } catch (error) {
       console.error("Error fetching wishlist:", error);
     } finally {
