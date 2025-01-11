@@ -8,89 +8,89 @@ import { HeartIcon, MinusIcon, MoveLeft, PlusIcon } from "lucide-react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { useWishlist } from "@/hooks/wishlist-hook";
-import { useCart } from "@/hooks/cart-hook";
+// import { useWishlist } from "@/hooks/wishlist-hook";
+// import { useCart } from "@/hooks/cart-hook";
 import Loading from "@/components/ui/loading";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function ProductDetail({ data }) {
-  const [qty, setqty] = useState(0);
-  const [isInWishlist, setIsInWishlist] = useState(false);
-  const [isInCart, setisIncart] = useState(false);
+  // const [qty, setqty] = useState(0);
+  // const [isInWishlist, setIsInWishlist] = useState(false);
+  // const [isInCart, setisIncart] = useState(false);
 
   const { status } = useSession();
-  const router = useRouter();
-  const pathname = usePathname();
+  // const router = useRouter();
+  // const pathname = usePathname();
 
-  // console.log(pathname);
+  // // console.log(pathname);
 
-  const { wishlist, loading, addToWishlist, removeFromWishlist } =
-    useWishlist();
+  // const { wishlist, loading, addToWishlist, removeFromWishlist } =
+  //   useWishlist();
 
-  const { addToCart, updateCart, cartList, removeFromCart } = useCart();
+  // const { addToCart, updateCart, cartList, removeFromCart } = useCart();
 
-  useEffect(() => {
-    if (data && wishlist) {
-      const isWish =
-        wishlist &&
-        data &&
-        wishlist.length > 0 &&
-        wishlist.some((item) => Number(item.productId) === data.id);
-      setIsInWishlist(isWish);
-    }
-  }, [data, wishlist]);
+  // useEffect(() => {
+  //   if (data && wishlist) {
+  //     const isWish =
+  //       wishlist &&
+  //       data &&
+  //       wishlist.length > 0 &&
+  //       wishlist.some((item) => Number(item.productId) === data.id);
+  //     setIsInWishlist(isWish);
+  //   }
+  // }, [data, wishlist]);
 
-  useEffect(() => {
-    if (data && cartList) {
-      const inCart =
-        cartList &&
-        data &&
-        cartList.length > 0 &&
-        cartList.some((item) => Number(item.productId) === data.id);
-      setisIncart(inCart);
-    }
-  }, [data, cartList]);
+  // useEffect(() => {
+  //   if (data && cartList) {
+  //     const inCart =
+  //       cartList &&
+  //       data &&
+  //       cartList.length > 0 &&
+  //       cartList.some((item) => Number(item.productId) === data.id);
+  //     setisIncart(inCart);
+  //   }
+  // }, [data, cartList]);
 
-  // console.log(isInCart, cartList, qty);
+  // // console.log(isInCart, cartList, qty);
 
-  useEffect(() => {
-    if (cartList && cartList.length > 0 && isInCart) {
-      const item = cartList.find((x) => Number(x.productId) === data.id);
-      // console.log(item);
-      if (item) {
-        setqty(item.quantity);
-      }
-    }
-  }, [cartList, isInCart]);
+  // useEffect(() => {
+  //   if (cartList && cartList.length > 0 && isInCart) {
+  //     const item = cartList.find((x) => Number(x.productId) === data.id);
+  //     // console.log(item);
+  //     if (item) {
+  //       setqty(item.quantity);
+  //     }
+  //   }
+  // }, [cartList, isInCart]);
 
-  // handle product for wishlistt
-  const handleWishlistToggle = async () => {
-    try {
-      if (!isInWishlist) {
-        await addToWishlist(data);
-      } else {
-        await removeFromWishlist(data.id);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
-    }
-  };
+  // // handle product for wishlistt
+  // const handleWishlistToggle = async () => {
+  //   try {
+  //     if (!isInWishlist) {
+  //       await addToWishlist(data);
+  //     } else {
+  //       await removeFromWishlist(data.id);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong");
+  //   }
+  // };
 
-  // handle product for carrt
-  const handleAddToCart = async () => {
-    try {
-      if (!isInCart) {
-        await addToCart({ ...data, quantity: 1 });
-      } else {
-        await removeFromCart(data.id);
-        setqty(0);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
-    }
-  };
+  // // handle product for carrt
+  // const handleAddToCart = async () => {
+  //   try {
+  //     if (!isInCart) {
+  //       await addToCart({ ...data, quantity: 1 });
+  //     } else {
+  //       await removeFromCart(data.id);
+  //       setqty(0);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Something went wrong");
+  //   }
+  // };
 
   if (!data) {
     return (
@@ -106,7 +106,7 @@ export default function ProductDetail({ data }) {
       <div className="px-4 sm:px-10 pt-10 flex justify-between items-center">
         <BackButton />
         <div className="flex gap-5">
-          {status === "authenticated" && (
+          {/* {status === "authenticated" && (
             <Button
               variant={isInWishlist ? "" : "secondary"}
               onClick={handleWishlistToggle}
@@ -119,7 +119,7 @@ export default function ProductDetail({ data }) {
                 }`}
               />
             </Button>
-          )}
+          )} */}
 
           <ShareComponent title={data?.title} id={data?.id} />
         </div>
@@ -141,13 +141,13 @@ export default function ProductDetail({ data }) {
             ${data?.price?.toFixed(2)}
           </h3>
           <div className="flex gap-10 py-5 ">
-            <Button onClick={handleAddToCart} className="border border-primary">
+            {/* <Button onClick={handleAddToCart} className="border border-primary">
               {isInCart
                 ? `Delete - ${(qty * data?.price)?.toFixed(3)}$`
                 : `Add to cart - ${data?.price?.toFixed(2)}$`}
-            </Button>
+            </Button> */}
 
-            {isInCart && (
+            {/* {isInCart && (
               <div className="flex border w-fit border-border overflow-hidden justify-center items-center rounded-xl">
                 <Button
                   variant="secondary"
@@ -169,7 +169,7 @@ export default function ProductDetail({ data }) {
                   <PlusIcon />
                 </Button>
               </div>
-            )}
+            )} */}
           </div>
           <p className="text-sm  ">{data?.description}</p>
         </div>
