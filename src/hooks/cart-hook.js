@@ -21,11 +21,11 @@ export const useCart = () => {
 
   // console.log("Cart-hook:", cartList);
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchCartList();
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "authenticated") {
+  //     fetchCartList();
+  //   }
+  // }, [status]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
