@@ -8,7 +8,14 @@ const ErrorFallback = ({ data = "" }) => {
   useEffect(() => {
     if (!data) {
       const interval = setInterval(() => {
-        setCountdown((prev) => prev - 1);
+        setCountdown((prev) => {
+          if (prev > 0) {
+            return prev - 1;
+          } else {
+            clearInterval(interval);
+            return 0;
+          }
+        });
       }, 1000);
 
       const timeout = setTimeout(() => {

@@ -66,7 +66,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={`${poppins.variable} ${poppins.className} antialiased`}>
         <NextTopLoader showSpinner={false} />
         <ThemeProvider

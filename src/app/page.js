@@ -3,6 +3,8 @@ import Image from "next/image";
 import Categories from "../components/homepage/categories";
 import Content from "../components/homepage/content";
 import Hero from "../components/homepage/hero";
+import { Suspense } from "react";
+import LoadingFallback from "./loading";
 
 export default async function Home() {
   const slide = await fetch(
@@ -23,9 +25,11 @@ export default async function Home() {
 
   return (
     <div className="">
-      <Hero data={hero} />
-      <Categories categories={categories} />
-      <Content newArrivals={content} />
+      <Suspense fallback={<LoadingFallback />}>
+        <Hero data={hero} />
+        <Categories categories={categories} />
+        <Content newArrivals={content} />
+      </Suspense>
     </div>
   );
 }

@@ -11,13 +11,18 @@ import { toast } from "sonner";
 import { useWishlist } from "@/hooks/wishlist-hook";
 import { useCart } from "@/hooks/cart-hook";
 import Loading from "@/components/ui/loading";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ProductDetail({ data }) {
   const [qty, setqty] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isInCart, setisIncart] = useState(false);
 
-  const { status, data: user } = useSession();
+  const { status } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // console.log(pathname);
 
   const { wishlist, loading, addToWishlist, removeFromWishlist } =
     useWishlist();

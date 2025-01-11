@@ -4,7 +4,6 @@ import LoadingFallback from "@/app/loading";
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const id = (await params).id;
-  console.log(id);
   const res = await fetch(process.env.NEXT_PUBLIC_STORE_URL + "products/" + id);
   const data = await res.json();
   const previousImages = (await parent).openGraph?.images || [];
@@ -79,7 +78,13 @@ export default async function page({ params }) {
   // console.log(id)
 
   const res = await fetch(process.env.NEXT_PUBLIC_STORE_URL + "products/" + id);
+
+  if (!res.ok) {
+    return null;
+  }
   const data = await res.json();
+
+  // console.log(data);
 
   return (
     <Suspense fallback={<LoadingFallback />}>
