@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Heart, Search, ShoppingCart, User } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut, useSession } from "next-auth/react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 export function Header() {
-  const { data, status } = useSession();
+  // const { data, status } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   // console.log(data);
   useEffect(() => {
@@ -63,7 +63,7 @@ export function Header() {
               Electronics
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             {data?.user?.email ? (
               <Popover>
                 <PopoverTrigger>
@@ -112,7 +112,7 @@ export function Header() {
                 <ShoppingCart className="w-5 h-5" />
               </Button>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </header>
