@@ -77,19 +77,20 @@ export default async function page({ params }) {
   const id = (await params).id;
   // console.log(id)
 
-  const res = await fetch(process.env.NEXT_PUBLIC_STORE_URL + "products/" + id);
+  // const res = await fetch(process.env.NEXT_PUBLIC_STORE_URL + "products/" + id);
 
-  if (!res.ok) {
-    return null;
-  }
-  const data = await res.json();
+  // if (!res.ok) {
+  //   return null;
+  // }
+  // const data = await res.json();
 
   // console.log(data);
 
   return (
     <Suspense fallback={<LoadingFallback />}>
       <div>
-        <ProductDetail data={data} />
+        {/* <ProductDetail data={data} id={id} /> */}
+        Product {id}
       </div>
     </Suspense>
   );

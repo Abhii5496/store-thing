@@ -13,10 +13,29 @@ import { toast } from "sonner";
 import Loading from "@/components/ui/loading";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function ProductDetail({ data }) {
+export default function ProductDetail({ id }) {
   // const [qty, setqty] = useState(0);
   // const [isInWishlist, setIsInWishlist] = useState(false);
   // const [isInCart, setisIncart] = useState(false);
+  const [data, setData] = useState([]);
+
+  const getData = async () => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_STORE_URL + "products/" + id
+    );
+
+    if (!res.ok) {
+      return null;
+    }
+    const resdata = await res.json();
+    setData(resdata);
+  };
+
+  useEffect(() => {
+    if (id) {
+      getData();
+    }
+  }, [id]);
 
   const { status } = useSession();
   // const router = useRouter();
